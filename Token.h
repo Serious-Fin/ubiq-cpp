@@ -50,17 +50,20 @@ enum class TokenType {
     FOR,
     LET,
     IF,
+
+    // Special
+    END,
 };
 
 class Token {
 public:
-    explicit Token(const TokenType type, std::string symbols, const int line, const int column) :
-    type(type), symbols(std::move(symbols)), line(line), column(column) {}
+    explicit Token(const TokenType type, std::string tokenText, const int line, const int column) :
+    type(type), symbols(std::move(tokenText)), line(line), column(column) {}
 
     [[nodiscard]] std::string ToString() const noexcept;
 private:
-    const TokenType type;
-    const std::string symbols;
-    const std::size_t line;
-    const std::size_t column;
+    TokenType type;
+    std::string symbols;
+    std::size_t line;
+    std::size_t column;
 };
