@@ -7,4 +7,6 @@ add_executable(ubiq_cpp main.cpp
         Lexer.cpp
         Lexer.h
         Token.cpp
-        Token.h)
+        Token.h
+        Error.cpp
+        Error.h)

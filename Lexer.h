@@ -9,7 +9,7 @@ public:
     explicit Lexer(std::string input) : source(std::move(input)) {
         tokens = {};
     }
-    std::vector<Token> GetAllTokens();
+    std::vector<Token> ParseTokens();
 
 private:
     std::string source;
@@ -21,4 +21,6 @@ private:
 
     [[nodiscard]] bool isAtEnd() const;
     void scanNextToken();
+    void addToken(TokenType type);
+    char consumeNextChar();
 };
