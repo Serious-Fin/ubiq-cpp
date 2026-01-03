@@ -1,8 +1,10 @@
-find_package(Catch2 3 REQUIRED)
-add_executable(Lexer_tests_run LexerTest.cpp
-        LexerTest.cpp)
+include(../cmake/CPM.cmake)
+CPMAddPackage("gh:catchorg/Catch2@3.12.0")
 
-target_link_libraries(Lexer_tests_run PRIVATE Catch2::Catch2WithMain)
+add_executable(Lexer_tests LexerTest.cpp)
 
-include(Catch)
-catch_discover_tests(Lexer_tests_run)
+# Link to both Catch2 AND your logic library
+target_link_libraries(Lexer_tests PRIVATE 
+    Catch2::Catch2WithMain 
+    ubiq_logic
+)
