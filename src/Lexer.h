@@ -23,4 +23,5 @@ private:
     void scanNextToken();
     void addToken(TokenType type);
     char consumeNextChar();
+    bool match(char expected);
 };

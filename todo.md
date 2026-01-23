@@ -1,4 +1,1 @@
-# ToDo
-
-- [ ] Read up on CMake
-- [ ] Add tests for current implementation on lexer
+Ended at: [Longer lexmes](https://craftinginterpreters.com/scanning.html#longer-lexemes)
