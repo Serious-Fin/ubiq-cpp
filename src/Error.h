@@ -4,7 +4,8 @@
 
 class Error {
 public:
-    static void Log(int line, int column, const std::string& message);
+    static void LogSyntaxError(int line, int column, const std::string& message);
+     static void Log(const std::string& message);
     static bool ErrorHappened();
 
 private:

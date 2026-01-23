@@ -5,10 +5,15 @@
 
 bool Error::hasErrorHappened = false;
 
-void Error::Log(int line, int column, const std::string &message) {
+void Error::LogSyntaxError(int line, int column, const std::string &message) {
     hasErrorHappened = true;
-    const auto formattedMsg = std::format("[line {} col {}] Error: {}", line, column, message);
+    const auto formattedMsg = std::format("[line {} col {}] Error: {}\n", line, column, message);
     printToConsole(formattedMsg);
+}
+
+void Error::Log(const std::string &message) {
+    hasErrorHappened = true;
+    printToConsole(message);
 }
 
 bool Error::ErrorHappened() {

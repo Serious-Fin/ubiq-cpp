@@ -60,6 +60,13 @@ public:
     explicit Token(const TokenType type, std::string tokenText, const int line, const int column) :
     type(type), symbols(std::move(tokenText)), line(line), column(column) {}
 
+    bool operator!=(Token const& other) const {
+        return type != other.type 
+            || symbols != other.symbols 
+            || line != other.line 
+            || column != other.column;
+    } 
+
     [[nodiscard]] std::string ToString() const noexcept;
 private:
     TokenType type;

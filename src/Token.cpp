@@ -41,6 +41,7 @@ const std::unordered_map<TokenType, std::string> TokenTypeNames = {
     {TokenType::FOR, "FOR"},
     {TokenType::LET, "LET"},
     {TokenType::IF, "IF"},
+    {TokenType::END, "END"},
 };
 
 std::string getTokenName(const TokenType type) noexcept {
