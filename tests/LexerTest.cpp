@@ -68,3 +68,30 @@ TEST_CASE("TwoSymbolTokens", "[LexerTests]") {
 
     SUCCEED();
 }
+
+TEST_CASE("IgnoreComments", "[LexerTests]") {
+    auto lexer = Lexer("*// this is a comment\n+");
+    auto tokens = lexer.ParseTokens();
+
+    std::vector<Token> expectedTokens = {
+        Token(TokenType::STAR, "*", 1, 1),
+        Token(TokenType::PLUS, "+", 2, 1),
+        Token(TokenType::END, "", 2, 2),
+    };
+
+    for (size_t i = 0; i < expectedTokens.size(); ++i) {
+        if (i >= tokens.size()) {
+            FAIL("Expected: " + expectedTokens[i].ToString() + "\nGot: <null>");
+        }
+
+        if (tokens[i] != expectedTokens[i]) {
+            FAIL("Expected: " + expectedTokens[i].ToString() + "\nGot: " + tokens[i].ToString());
+        }
+    }
+
+    if (tokens.size() > expectedTokens.size()) {
+        FAIL("Expected: <null>\nGot: " + tokens[expectedTokens.size()].ToString());
+    }
+
+    SUCCEED();
+}

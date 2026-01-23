@@ -8,7 +8,7 @@ std::vector<Token> Lexer::ParseTokens() {
         start = current;
         scanNextToken();
     }
-    tokens.emplace_back(TokenType::END, "", line, current + 1);
+    tokens.emplace_back(TokenType::END, "", line, column + 1);
     return tokens;
 }
 
@@ -56,15 +56,40 @@ void Lexer::scanNextToken() {
         case '>':
             addToken(match('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER);
             break;
+        case '/':
+            if (match('/')) {
+                while (peek() != '\n' && !isAtEnd())
+                    consumeNextChar();   
+                column = 0;             
+            } else {
+                addToken(TokenType::SLASH);
+            }
+            break;
+        case ' ':
+            break;
+        case '\r':
+            break;
+        case '\t':
+            break;
+        case '\n':
+            line++;
+            column = 0;
+            break;
         default:
             Error::LogSyntaxError(line, column, std::format("Unexpected character {}", currentChar));
             break;
     }
 }
 
+char Lexer::peek() {
+    if (isAtEnd())
+        return '\0';
+    return source.at(current);
+}
+
 void Lexer::addToken(TokenType type) {
     auto tokenText = source.substr(start, current - start);
-    tokens.emplace_back(type, tokenText, line, start + 1);
+    tokens.emplace_back(type, tokenText, line, column);
 }
 
 char Lexer::consumeNextChar() {
@@ -84,5 +109,6 @@ bool Lexer::match(char expected) {
         return false;
     
     current++;
+    column++;
     return true;
 }
